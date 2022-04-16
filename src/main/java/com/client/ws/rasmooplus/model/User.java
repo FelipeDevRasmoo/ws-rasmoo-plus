@@ -18,16 +18,19 @@ import java.time.LocalDate;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "users_id")
     private Long id;
 
     private String name;
 
+    @Column(unique = true)
     private String email;
 
+    @Column(unique = true)
     private String phone;
 
+    @Column(unique = true)
     private String cpf;
 
     @Column(name = "dt_subscription")

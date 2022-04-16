@@ -1,5 +1,6 @@
 package com.client.ws.rasmooplus.controller;
 
+import com.client.ws.rasmooplus.dto.SubscriptionTypeDto;
 import com.client.ws.rasmooplus.exception.NotFoudException;
 import com.client.ws.rasmooplus.model.SubscriptionType;
 import com.client.ws.rasmooplus.service.SubscriptionTypeService;
@@ -18,7 +19,7 @@ public class SubscriptionTypeController {
     @Autowired
     private SubscriptionTypeService subscriptionTypeService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<SubscriptionType>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.findAll());
     }
@@ -28,5 +29,8 @@ public class SubscriptionTypeController {
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.findById(id));
     }
 
-
+    @PostMapping
+    public ResponseEntity<SubscriptionType> create(@RequestBody SubscriptionTypeDto dto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(subscriptionTypeService.create(dto));
+    }
 }
