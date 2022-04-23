@@ -13,7 +13,7 @@ public interface SubscriptionTypeService {
 
     SubscriptionType create(SubscriptionTypeDto dto);
 
-    SubscriptionType update(Long id, SubscriptionType subscriptionType);
+    SubscriptionType update(Long id, SubscriptionTypeDto dto);
 
     void delete(Long id);
 }
