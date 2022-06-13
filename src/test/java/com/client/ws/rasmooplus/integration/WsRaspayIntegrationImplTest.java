@@ -24,14 +24,14 @@ class WsRaspayIntegrationImplTest {
 
     @Test
     void createOrderWhenDtoOK(){
-        OrderDto dto = new OrderDto(null,"62a2ab7723f8e94af75c715a", BigDecimal.ZERO,"MONTH22");
+        OrderDto dto = new OrderDto(null,"62a3c08d87aa143926d8d58a", BigDecimal.ZERO,"MONTH22");
         wsRaspayIntegration.createOrder(dto);
     }
 
     @Test
     void processPaymentWhenDtoOK(){
         CreditCardDto creditCardDto = new CreditCardDto(123L,"02371386030",0L,06L,"1234123412341234",2025L);
-        PaymentDto paymentDto = new PaymentDto(creditCardDto,"62a2ab7723f8e94af75c715a","62a3a43dadc17b39223969f8");
+        PaymentDto paymentDto = new PaymentDto(creditCardDto,"62a3c08d87aa143926d8d58a","62a3c14187aa143926d8d58e");
         wsRaspayIntegration.processPayment(paymentDto);
     }
 }
