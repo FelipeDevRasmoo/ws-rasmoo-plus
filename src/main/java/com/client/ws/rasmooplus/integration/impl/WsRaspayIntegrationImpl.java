@@ -65,7 +65,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
                     restTemplate.exchange(raspayHost+paymentUrl, HttpMethod.POST, request, Boolean.class);
             return response.getBody();
         } catch (Exception e) {
-            throw e.get;
+            throw e;
         }
     }
 
