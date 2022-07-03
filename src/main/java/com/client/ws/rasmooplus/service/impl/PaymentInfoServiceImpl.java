@@ -2,11 +2,13 @@ package com.client.ws.rasmooplus.service.impl;
 
 import com.client.ws.rasmooplus.dto.PaymentProcessDto;
 import com.client.ws.rasmooplus.dto.wsraspay.CustomerDto;
+import com.client.ws.rasmooplus.dto.wsraspay.OrderDto;
 import com.client.ws.rasmooplus.exception.BusinessException;
 import com.client.ws.rasmooplus.exception.NotFoudException;
 import com.client.ws.rasmooplus.integration.WsRaspayIntegration;
 import com.client.ws.rasmooplus.mapper.UserPaymentInfoMapper;
 import com.client.ws.rasmooplus.mapper.wsraspay.CustomerMapper;
+import com.client.ws.rasmooplus.mapper.wsraspay.OrderMapper;
 import com.client.ws.rasmooplus.model.User;
 import com.client.ws.rasmooplus.model.UserPaymentInfo;
 import com.client.ws.rasmooplus.repositoy.UserPaymentInfoRepository;
@@ -46,6 +48,7 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
         //cria ou atualiza usuario raspay
         CustomerDto customerDto = wsRaspayIntegration.createCustomer(CustomerMapper.build(user));
         //cria o pedido de pagamento
+        OrderDto orderDto = wsRaspayIntegration.createOrder(OrderMapper.build(customerDto.getId(),dto));
         //processa o pagamento
 
         //salvar informacoes de pagamento
