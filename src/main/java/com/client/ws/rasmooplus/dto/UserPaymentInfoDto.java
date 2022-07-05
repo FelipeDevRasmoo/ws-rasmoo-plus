@@ -37,6 +37,8 @@ public class UserPaymentInfoDto {
 
     private LocalDate dtPayment = LocalDate.now();
 
+    private Long installments;
+
     @NotNull(message = "deve ser informado")
     private Long userId;
 }
