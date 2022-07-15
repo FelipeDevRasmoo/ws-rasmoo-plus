@@ -18,7 +18,7 @@ class MailIntegrationImplTest {
 
     @Test
     void createCustomerWhenDtoOK(){
-        mailintegration.send("rasmoocontateste@gmail.com", "OLá Gmail");
+        mailintegration.send("rasmoocontateste@gmail.com", "OLá Gmail","Acesso liberado");
     }
 
 }

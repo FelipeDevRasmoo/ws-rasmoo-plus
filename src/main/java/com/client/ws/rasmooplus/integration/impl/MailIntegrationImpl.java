@@ -13,11 +13,11 @@ public class MailIntegrationImpl implements Mailintegration {
     private JavaMailSender javaMailSender;
 
     @Override
-    public void send(String mailTo, String message) {
+    public void send(String mailTo, String message, String subject) {
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(mailTo);
-        simpleMailMessage.setSubject("Acesso Liberado!");
-        simpleMailMessage.setText("Login :"+mailTo+" Senha: alunorasmoo");
+        simpleMailMessage.setSubject(subject);
+        simpleMailMessage.setText(message);
         javaMailSender.send(simpleMailMessage);
     }
 }
