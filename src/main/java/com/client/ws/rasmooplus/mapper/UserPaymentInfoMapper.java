@@ -15,6 +15,7 @@ public class UserPaymentInfoMapper {
                 .cardSecurityCode(dto.getCardSecurityCode())
                 .price(dto.getPrice())
                 .dtPayment(dto.getDtPayment())
+                .installments(dto.getInstallments())
                 .user(user)
                 .build();
 
