@@ -1,7 +1,9 @@
 package com.client.ws.rasmooplus.controller;
 
 import com.client.ws.rasmooplus.dto.LoginDto;
+import com.client.ws.rasmooplus.dto.TokenDto;
 import com.client.ws.rasmooplus.exception.BadRequestException;
+import com.client.ws.rasmooplus.service.AuthenticationService;
 import com.client.ws.rasmooplus.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,22 +24,11 @@ import javax.validation.Valid;
 public class AuthenticationController {
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private TokenService tokenService;
+    private AuthenticationService authenticationService;
 
     @PostMapping
-    public ResponseEntity<String> auth(@RequestBody @Valid LoginDto dto) {
-        UsernamePasswordAuthenticationToken userPasssAuth
-                = new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword());
-        try {
-            Authentication auth = authenticationManager.authenticate(userPasssAuth);
-            String token = tokenService.getToken(auth);
-            return ResponseEntity.status(HttpStatus.OK).body(token);
-        } catch (Exception e) {
-            throw new BadRequestException("Erro ao formatar token - "+e.getMessage());
-        }
+    public ResponseEntity<TokenDto> auth(@RequestBody @Valid LoginDto dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(authenticationService.auth(dto));
     }
 
 }
