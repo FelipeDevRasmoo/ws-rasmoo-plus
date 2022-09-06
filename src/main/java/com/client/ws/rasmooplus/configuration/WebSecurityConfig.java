@@ -1,6 +1,7 @@
 package com.client.ws.rasmooplus.configuration;
 
 import com.client.ws.rasmooplus.filter.AuthenticationFilter;
+import com.client.ws.rasmooplus.repositoy.UserDetailsRepository;
 import com.client.ws.rasmooplus.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private UserDetailsRepository userDetailsRepository;
+
     @Override
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -36,12 +40,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     //responsável pela configuração de autorizacao -> Acesso a URL's
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/subscription-type").permitAll()
-                .antMatchers(HttpMethod.GET,"/subscription-type/*").permitAll()
-                .antMatchers(HttpMethod.POST,"/auth").permitAll()
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/subscription-type").permitAll()
+                .antMatchers(HttpMethod.GET, "/subscription-type/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new AuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
+                .and().addFilterBefore(new AuthenticationFilter(tokenService, userDetailsRepository), UsernamePasswordAuthenticationFilter.class);
 
     }
 
