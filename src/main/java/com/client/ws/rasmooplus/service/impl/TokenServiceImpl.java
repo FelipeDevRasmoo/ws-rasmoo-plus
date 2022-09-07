@@ -22,13 +22,13 @@ public class TokenServiceImpl implements TokenService {
     private String secret;
 
     @Override
-    public String getToken(Authentication auth) {
-        UserCredentials user = (UserCredentials) auth.getPrincipal();
+    public String getToken(Long userId) {
+
         Date today = new Date();
         Date expirationDate = new Date(today.getTime() + Long.parseLong(expiration));
         return Jwts.builder()
                 .setIssuer("API Rasmoo Plus")
-                .setSubject(user.getId().toString())
+                .setSubject(userId.toString())
                 .setIssuedAt(today)
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS256, secret)

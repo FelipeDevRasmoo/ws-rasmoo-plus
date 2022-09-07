@@ -1,11 +1,12 @@
 package com.client.ws.rasmooplus.service.impl;
 
+import com.client.ws.rasmooplus.exception.BadRequestException;
 import com.client.ws.rasmooplus.exception.NotFoudException;
+import com.client.ws.rasmooplus.model.UserCredentials;
 import com.client.ws.rasmooplus.repositoy.UserDetailsRepository;
+import com.client.ws.rasmooplus.service.UserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,13 +16,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserDetailsRepository userDetailsRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       var userDetailsOpt = userDetailsRepository.findByUsername(username);
+    public UserCredentials loadUserByUsernameAndPass(String username, String pass) {
 
-       if(userDetailsOpt.isPresent()) {
-           return userDetailsOpt.get();
-       }
+        var userCredentialsOpt = userDetailsRepository.findByUsername(username);
 
-        throw new NotFoudException("Usuário não encontrado");
+        if (userCredentialsOpt.isEmpty()) {
+            throw new NotFoudException("Usuário não encontrado");
+        }
+
+        UserCredentials userCredentials = userCredentialsOpt.get();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if (encoder.matches(pass, userCredentials.getPassword())) {
+            return userCredentials;
+        }
+
+        throw new BadRequestException("Usuário ou senha inválido");
     }
 }
