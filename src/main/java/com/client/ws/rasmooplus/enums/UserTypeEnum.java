@@ -5,12 +5,14 @@ import lombok.Getter;
 @Getter
 public enum UserTypeEnum {
 
-    PROFESSOR(1),
-    ADMINISTRADOR(2),
-    ALUNO(3);
+    PROFESSOR(1L),
+    ADMINISTRADOR(2L),
+    ALUNO(3L);
 
     private Long id;
 
-    UserTypeEnum(int i) {
+    UserTypeEnum(Long id){
+        this.id = id;
     }
+
 }
