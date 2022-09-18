@@ -1,7 +1,7 @@
 package com.client.ws.rasmooplus.configuration;
 
 import com.client.ws.rasmooplus.filter.AuthenticationFilter;
-import com.client.ws.rasmooplus.repositoy.UserDetailsRepository;
+import com.client.ws.rasmooplus.repositoy.jpa.UserDetailsRepository;
 import com.client.ws.rasmooplus.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,13 +1,11 @@
 package com.client.ws.rasmooplus.service.impl;
 
-import com.client.ws.rasmooplus.model.UserCredentials;
 import com.client.ws.rasmooplus.service.TokenService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

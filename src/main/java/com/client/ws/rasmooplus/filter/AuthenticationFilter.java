@@ -1,11 +1,9 @@
 package com.client.ws.rasmooplus.filter;
 
-import com.client.ws.rasmooplus.exception.BadRequestException;
 import com.client.ws.rasmooplus.exception.NotFoudException;
-import com.client.ws.rasmooplus.model.UserCredentials;
-import com.client.ws.rasmooplus.repositoy.UserDetailsRepository;
+import com.client.ws.rasmooplus.model.jpa.UserCredentials;
+import com.client.ws.rasmooplus.repositoy.jpa.UserDetailsRepository;
 import com.client.ws.rasmooplus.service.TokenService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;

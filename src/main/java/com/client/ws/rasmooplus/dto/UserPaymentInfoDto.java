@@ -1,6 +1,5 @@
 package com.client.ws.rasmooplus.dto;
 
-import com.client.ws.rasmooplus.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
