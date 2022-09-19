@@ -6,10 +6,10 @@ import com.client.ws.rasmooplus.exception.NotFoudException;
 import com.client.ws.rasmooplus.mapper.UserMapper;
 import com.client.ws.rasmooplus.model.jpa.User;
 import com.client.ws.rasmooplus.model.jpa.UserType;
-import com.client.ws.rasmooplus.model.redis.RecoveryCode;
+import com.client.ws.rasmooplus.model.redis.UserRecoveryCode;
 import com.client.ws.rasmooplus.repositoy.jpa.UserRepository;
 import com.client.ws.rasmooplus.repositoy.jpa.UserTypeRepository;
-import com.client.ws.rasmooplus.repositoy.redis.RecoveryCodeRepository;
+import com.client.ws.rasmooplus.repositoy.redis.UserRecoveryCodeRepository;
 import com.client.ws.rasmooplus.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -23,12 +23,10 @@ public class UserServiceImpl implements UserService {
 
     private final UserTypeRepository userTypeRepository;
 
-    private final RecoveryCodeRepository recoveryCodeRepository;
 
-    UserServiceImpl(UserRepository userRepository, UserTypeRepository userTypeRepository, RecoveryCodeRepository recoveryCodeRepository) {
+    UserServiceImpl(UserRepository userRepository, UserTypeRepository userTypeRepository) {
         this.userRepository = userRepository;
         this.userTypeRepository = userTypeRepository;
-        this.recoveryCodeRepository = recoveryCodeRepository;
     }
 
     @Override
@@ -49,12 +47,5 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public Object sendRecoveryCode(String email) {
 
-        String code = String.format("%04d", new Random().nextInt(10000));
-
-        recoveryCodeRepository.save(RecoveryCode.builder().code(code).build());
-        return null;
-    }
 }
