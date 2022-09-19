@@ -8,6 +8,8 @@ import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @RedisHash("recoveryCode")
@@ -21,6 +23,7 @@ public class UserRecoveryCode {
     private String id;
 
     @Indexed
+    @Email
     private String email;
 
     private String code;
