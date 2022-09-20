@@ -33,7 +33,7 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.OK).body(authenticationService.auth(dto));
     }
 
-    @PostMapping("/recovery-code/send/")
+    @PostMapping("/recovery-code/send")
     public ResponseEntity<?> sendRecoveryCode(@RequestBody @Valid UserRecoveryCode dto) {
         userDetailsService.sendRecoveryCode(dto.getEmail());
         return ResponseEntity.status(HttpStatus.OK).body(null);
