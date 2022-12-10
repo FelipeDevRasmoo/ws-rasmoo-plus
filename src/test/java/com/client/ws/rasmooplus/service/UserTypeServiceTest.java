@@ -26,8 +26,12 @@ class UserTypeServiceTest {
     @InjectMocks
     private UserTypeServiceImpl userTypeService;
 
+    /*
+    * given_metodo_when_cenario_then_retornoEsperado
+    * */
+
     @Test
-    void findAll() {
+    void given_findAll_when_thereAreDatasInDataBase_then_returnAllDatas() {
         List<UserType> userTypeList = new ArrayList<>();
 
         UserType userType1 = new UserType(1l, "Professor","Professor da plataforma");
