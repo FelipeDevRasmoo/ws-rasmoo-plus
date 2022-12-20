@@ -20,7 +20,7 @@ import java.util.Random;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Value("${webservices.rasplus.redis.recoverycode.timetou}")
+    @Value("${webservices.rasplus.redis.recoverycode.timeout}")
     private String recoveryCodeTimeout;
 
     @Autowired
