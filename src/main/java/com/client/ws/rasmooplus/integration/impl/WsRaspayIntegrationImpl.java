@@ -3,6 +3,7 @@ package com.client.ws.rasmooplus.integration.impl;
 import com.client.ws.rasmooplus.dto.wsraspay.CustomerDto;
 import com.client.ws.rasmooplus.dto.wsraspay.OrderDto;
 import com.client.ws.rasmooplus.dto.wsraspay.PaymentDto;
+import com.client.ws.rasmooplus.exception.HttpClientException;
 import com.client.ws.rasmooplus.integration.WsRaspayIntegration;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +42,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
                     restTemplate.exchange(raspayHost+customerUrl, HttpMethod.POST, request, CustomerDto.class);
             return response.getBody();
         } catch (Exception e) {
-            throw e;
+            throw new HttpClientException(e.getLocalizedMessage());
         }
     }
 
@@ -53,7 +54,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
                     restTemplate.exchange(raspayHost+orderUrl, HttpMethod.POST, request, OrderDto.class);
             return response.getBody();
         } catch (Exception e) {
-            throw e;
+            throw new HttpClientException(e.getLocalizedMessage());
         }
     }
 
@@ -65,7 +66,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
                     restTemplate.exchange(raspayHost+paymentUrl, HttpMethod.POST, request, Boolean.class);
             return response.getBody();
         } catch (Exception e) {
-            throw e;
+            throw new HttpClientException(e.getLocalizedMessage());
         }
     }
 
