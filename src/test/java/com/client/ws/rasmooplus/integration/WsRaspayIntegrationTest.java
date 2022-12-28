@@ -1,8 +1,10 @@
 package com.client.ws.rasmooplus.integration;
 
 import com.client.ws.rasmooplus.dto.wsraspay.CustomerDto;
+import com.client.ws.rasmooplus.exception.HttpClientException;
 import com.client.ws.rasmooplus.integration.impl.WsRaspayIntegrationImpl;
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
@@ -50,7 +53,34 @@ class WsRaspayIntegrationTest {
         HttpEntity<CustomerDto> request = new HttpEntity<>(dto,this.headers);
         when(restTemplate.exchange("http://localhost:8080/customer", HttpMethod.POST, request, CustomerDto.class))
                 .thenReturn(ResponseEntity.of(Optional.of(dto)));
-        wsRaspayIntegration.createCustomer(dto);
+        assertEquals(dto, wsRaspayIntegration.createCustomer(dto));
+        Mockito.verify(restTemplate, times(1)).exchange("http://localhost:8080/customer", HttpMethod.POST, request, CustomerDto.class);
+    }
+
+    @Test
+    void given_createCustomer_when_apiResponseIs400BadRequest_then_returnNull() {
+        ReflectionTestUtils.setField(wsRaspayIntegration,"raspayHost","http://localhost:8080");
+        ReflectionTestUtils.setField(wsRaspayIntegration,"customerUrl","/customer");
+        CustomerDto dto = new CustomerDto();
+        dto.setCpf("11111111111");
+        HttpEntity<CustomerDto> request = new HttpEntity<>(dto,this.headers);
+        when(restTemplate.exchange("http://localhost:8080/customer", HttpMethod.POST, request, CustomerDto.class))
+                .thenReturn(ResponseEntity.badRequest().build());
+        assertNull(wsRaspayIntegration.createCustomer(dto));
+        Mockito.verify(restTemplate, times(1)).exchange("http://localhost:8080/customer", HttpMethod.POST, request, CustomerDto.class);
+    }
+
+    @Test
+    void given_createCustomer_when_apiResponseGetThrows_then_throwHttpClientException() {
+        ReflectionTestUtils.setField(wsRaspayIntegration,"raspayHost","http://localhost:8080");
+        ReflectionTestUtils.setField(wsRaspayIntegration,"customerUrl","/customer");
+        CustomerDto dto = new CustomerDto();
+        dto.setCpf("11111111111");
+        HttpEntity<CustomerDto> request = new HttpEntity<>(dto,this.headers);
+        when(restTemplate.exchange("http://localhost:8080/customer", HttpMethod.POST, request, CustomerDto.class))
+                .thenThrow(HttpClientException.class);
+
+        assertThrows(HttpClientException.class, () -> wsRaspayIntegration.createCustomer(dto));
         Mockito.verify(restTemplate, times(1)).exchange("http://localhost:8080/customer", HttpMethod.POST, request, CustomerDto.class);
     }
 
