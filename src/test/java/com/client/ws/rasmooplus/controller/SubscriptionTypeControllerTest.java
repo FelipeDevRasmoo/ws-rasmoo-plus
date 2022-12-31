@@ -105,4 +105,51 @@ class SubscriptionTypeControllerTest {
         ;
         verify(subscriptionTypeService,times(0)).create(any());
     }
+
+    @Test
+    void given_update_whendDtoIsOk_then_returnSubscriptionTypeUpdated() throws Exception {
+        SubscriptionType subscriptionType = new SubscriptionType(2L, "VITALICIO", null,
+                BigDecimal.valueOf(997), "FOREVER2022");
+        SubscriptionTypeDto dto = new SubscriptionTypeDto(2L, "VITALICIO", null,
+                BigDecimal.valueOf(997), "FOREVER2022");
+        when(subscriptionTypeService.update(2L,dto)).thenReturn(subscriptionType);
+
+        mockMvc.perform(put("/subscription-type/2")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id",is(2)))
+        ;
+    }
+
+    @Test
+    void given_update_whendDtoIsMissingValues_then_returnBadRequest() throws Exception {
+        SubscriptionTypeDto dto = new SubscriptionTypeDto(null, "", 13L,
+                null, "22");
+
+        mockMvc.perform(put("/subscription-type/2")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message",is("[price=não pode ser nulo, accessMonths=não pode ser maior que 12, name=não pode ser nulo ou vazio, productKey=deve ter tamanho entre 5 e 15]")))
+                .andExpect(jsonPath("$.httpStatus",is("BAD_REQUEST")))
+                .andExpect(jsonPath("$.statusCode",is(400)))
+        ;
+        verify(subscriptionTypeService,times(0)).update(any(),any());
+    }
+
+    @Test
+    void given_update_whendIdIsNull_then_returnBadRequest() throws Exception {
+        SubscriptionTypeDto dto = new SubscriptionTypeDto(null, "", 13L,
+                null, "22");
+
+        mockMvc.perform(put("/subscription-type/")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(dto)))
+                .andExpect(status().isMethodNotAllowed())
+        ;
+        verify(subscriptionTypeService,times(0)).update(any(),any());
+    }
 }
