@@ -21,8 +21,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -49,7 +52,7 @@ class SubscriptionTypeControllerTest {
     void given_findById_whenGetId2_then_returnOneSubscriptionType() throws Exception {
         SubscriptionType subscriptionType = new SubscriptionType(2L, "VITALICIO", null,
                 BigDecimal.valueOf(997), "FOREVER2022");
-        Mockito.when(subscriptionTypeService.findById(2L)).thenReturn(subscriptionType);
+        when(subscriptionTypeService.findById(2L)).thenReturn(subscriptionType);
 
         mockMvc.perform(get("/subscription-type/2").contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
@@ -57,5 +60,13 @@ class SubscriptionTypeControllerTest {
                 .andExpect(jsonPath("$.id", is(2)))
                 .andExpect(jsonPath("$.name", is("VITALICIO")))
                 ;
+    }
+
+    @Test
+    void given_delete_whenGetId2_then_noReturnAndNoContent() throws Exception {
+        mockMvc.perform(delete("/subscription-type/{id}", 2))
+                .andExpect(status().isNoContent())
+        ;
+        verify(subscriptionTypeService, times(1)).delete(2L);
     }
 }
