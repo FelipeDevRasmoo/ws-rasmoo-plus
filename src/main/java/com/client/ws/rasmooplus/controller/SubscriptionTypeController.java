@@ -19,7 +19,6 @@ public class SubscriptionTypeController {
     @Autowired
     private SubscriptionTypeService subscriptionTypeService;
 
-
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SubscriptionType>> findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(subscriptionTypeService.findAll());

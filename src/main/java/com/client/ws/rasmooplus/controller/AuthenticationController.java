@@ -46,9 +46,8 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.OK).body( userDetailsService.recoveryCodeIsValid(recoveryCode, email));
     }
 
-
     @PatchMapping("/recovery-code/password")
-    public ResponseEntity<?> sendRecoveryCode(@RequestBody @Valid UserDetailsDto dto) {
+    public ResponseEntity<?> updatePasswordByRecoveryCode(@RequestBody @Valid UserDetailsDto dto) {
         userDetailsService.updatePasswordByRecoveryCode(dto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
