@@ -24,9 +24,8 @@ import java.math.BigDecimal;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureDataJpa
@@ -136,5 +135,16 @@ class AuthenticationControllerTest {
                 .andExpect(jsonPath("$.message",is("[password=atributo inválido, email=inválido]")))
                 .andExpect(jsonPath("$.httpStatus",is("BAD_REQUEST")))
                 .andExpect(jsonPath("$.statusCode",is(400)));
+    }
+
+    @Test
+    void given_updatePasswordByRecoveryCode_then_returnOk() throws Exception {
+
+        when(userDetailsService.recoveryCodeIsValid("1234", "usuario@usuario")).thenReturn(true);
+        mockMvc.perform(get("/auth/recovery-code/").param("recoveryCode","1234")
+                        .param("email","usuario@usuario"))
+                .andExpect(status().isOk());
+
+        verify(userDetailsService, times(1)).recoveryCodeIsValid("1234","usuario@usuario");
     }
 }
