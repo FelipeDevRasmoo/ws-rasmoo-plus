@@ -50,7 +50,7 @@ class SubscriptionTypeRepositoryTest {
     }
 
     @Test
-    void given_findByProductKey_when_getProducKey_then_returnCorrectSubscription() {
+    void given_findByProductKey_when_getByProducKey_then_returnCorrectSubscription() {
         assertEquals("VITALICIO", subscriptionTypeRepository.findByProductKey("FOREVER2022").get().getName());
         assertEquals("ANUAL", subscriptionTypeRepository.findByProductKey("YEARLY2022").get().getName());
         assertEquals("MENSAL", subscriptionTypeRepository.findByProductKey("MONTHLY2022").get().getName());
