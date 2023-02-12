@@ -12,6 +12,7 @@ import com.client.ws.rasmooplus.repositoy.jpa.UserTypeRepository;
 import com.client.ws.rasmooplus.repositoy.redis.UserRecoveryCodeRepository;
 import com.client.ws.rasmooplus.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Objects;
 import java.util.Random;
@@ -45,6 +46,11 @@ public class UserServiceImpl implements UserService {
         UserType userType = userTypeOpt.get();
         User user = UserMapper.fromDtoToEntity(dto, userType, null);
         return userRepository.save(user);
+    }
+
+    @Override
+    public User uploadPhoto(Long id, MultipartFile file) {
+        return null;
     }
 
 
