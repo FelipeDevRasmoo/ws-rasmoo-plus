@@ -17,7 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 
+import java.io.FileInputStream;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,18 +51,13 @@ class UserServiceTest {
 
     @Test
     void given_create_when_idIsNullAndUserTypeIsFound_then_returnUserCreated() {
-        UserType userType = new UserType(1L, "Aluno", "Aluno da plataforma");
+        UserType userType = getUserType();
 
         when(userTypeRepository.findById(1L)).thenReturn(Optional.of(userType));
 
         dto.setId(null);
 
-        User user = new User();
-        user.setEmail(dto.getEmail());
-        user.setCpf(dto.getCpf());
-        user.setDtSubscription(dto.getDtSubscription());
-        user.setDtExpiration(dto.getDtExpiration());
-        user.setUserType(userType);
+        User user = getUser(userType);
         when(userRepository.save(user)).thenReturn(user);
 
         Assertions.assertEquals(user, userService.create(dto));
@@ -67,6 +65,9 @@ class UserServiceTest {
         verify(userTypeRepository, times(1)).findById(1L);
         verify(userRepository, times(1)).save(user);
     }
+
+
+
 
     @Test
     void given_create_when_idIsNotNull_then_throwBadRequestException() {
@@ -86,5 +87,34 @@ class UserServiceTest {
 
         verify(userTypeRepository, times(1)).findById(1L);
         verify(userRepository, times(0)).save(any());
+    }
+
+    @Test
+    void given_uploadPhoto_when_thereIsUserAndFileAndItIsPNGorJPEG_then_updatePhotoAndReturnUser() throws Exception {
+        FileInputStream fis = new FileInputStream("src/test/resources/static/logoJava.png");
+        MockMultipartFile file = new MockMultipartFile("file", "logoJava.png", MediaType.MULTIPART_FORM_DATA_VALUE, fis);
+        UserType userType = getUserType();
+        User user = getUser(userType);
+
+        when(userRepository.findById(2L)).thenReturn(Optional.of(user));
+        User userReturned = userService.uploadPhoto(2L, file);
+        assertNotNull(userReturned);
+        assertNotNull(userReturned.getPhoto());
+        assertEquals("logoJava.png", userReturned.getPhotoName());
+        verify(userRepository, times(1)).findById(2L);
+    }
+
+    private UserType getUserType() {
+        return new UserType(1L, "Aluno", "Aluno da plataforma");
+    }
+
+    private User getUser(UserType userType) {
+        User user = new User();
+        user.setEmail(dto.getEmail());
+        user.setCpf(dto.getCpf());
+        user.setDtSubscription(dto.getDtSubscription());
+        user.setDtExpiration(dto.getDtExpiration());
+        user.setUserType(userType);
+        return user;
     }
 }
