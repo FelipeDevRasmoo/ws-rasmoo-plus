@@ -66,6 +66,11 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Override
+    public byte[] downloadPhoto(long l) {
+        return new byte[0];
+    }
+
     private User findById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new NotFoudException("Usuário não encontrado"));
     }

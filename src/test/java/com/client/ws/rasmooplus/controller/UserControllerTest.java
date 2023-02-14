@@ -19,6 +19,9 @@ import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequ
 
 import java.io.FileInputStream;
 
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -48,5 +51,14 @@ class UserControllerTest {
 
         mockMvc.perform(builder.file(file))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void given_downloadPhoto_when_thereIsPhotoInDatabase_then_return200Ok() throws Exception {
+        mockMvc.perform(get("/user/2/photo")
+                        .contentType(MediaType.IMAGE_PNG)
+                        .contentType(MediaType.IMAGE_JPEG))
+                .andExpect(status().isOk());
+        verify(userService, times(1)).downloadPhoto(2L);
     }
 }

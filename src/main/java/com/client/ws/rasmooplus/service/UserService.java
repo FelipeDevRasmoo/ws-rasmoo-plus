@@ -10,4 +10,6 @@ public interface UserService {
     User create(UserDto dto);
 
     User uploadPhoto(Long id, MultipartFile file) throws IOException;
+
+    byte[] downloadPhoto(long l);
 }
