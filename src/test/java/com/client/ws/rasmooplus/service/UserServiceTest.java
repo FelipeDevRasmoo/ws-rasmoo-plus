@@ -104,6 +104,15 @@ class UserServiceTest {
         verify(userRepository, times(1)).findById(2L);
     }
 
+    @Test
+    void given_uploadPhoto_when_thereIsUserAndFileAndItIsNotPNGorJPEG_then_throwBadRequestException() throws Exception {
+        FileInputStream fis = new FileInputStream("src/test/resources/static/logoJava.png");
+        MockMultipartFile file = new MockMultipartFile("file", "logoJava.txt", MediaType.MULTIPART_FORM_DATA_VALUE, fis);
+
+        assertThrows(BadRequestException.class, () ->userService.uploadPhoto(2L, file));
+        verify(userRepository, times(0)).findById(any());
+    }
+
     private UserType getUserType() {
         return new UserType(1L, "Aluno", "Aluno da plataforma");
     }
