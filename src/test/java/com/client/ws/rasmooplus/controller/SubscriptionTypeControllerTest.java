@@ -98,7 +98,7 @@ class SubscriptionTypeControllerTest {
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is("[price=não pode ser nulo, accessMonths=não pode ser maior que 12, name=não pode ser nulo ou vazio, productKey=deve ter tamanho entre 5 e 15]")))
+                .andExpect(jsonPath("$.message", is("[price=não pode ser nulo, accessMonths=não pode ser maior que 12, name=deve ter tamanho entre 5 e 30, productKey=deve ter tamanho entre 5 e 15]")))
                 .andExpect(jsonPath("$.httpStatus", is("BAD_REQUEST")))
                 .andExpect(jsonPath("$.statusCode", is(400)));
         verify(subscriptionTypeService, times(0)).create(any());
@@ -122,7 +122,7 @@ class SubscriptionTypeControllerTest {
 
     @Test
     void given_update_when_dtoIsMissingValues_then_returnBadRequest() throws Exception {
-        SubscriptionTypeDto dto = new SubscriptionTypeDto(null, "", 13L,
+        SubscriptionTypeDto dto = new SubscriptionTypeDto(null, " ", 13L,
                 null, "22");
 
         mockMvc.perform(put("/subscription-type/2")
@@ -130,7 +130,7 @@ class SubscriptionTypeControllerTest {
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message", is("[price=não pode ser nulo, accessMonths=não pode ser maior que 12, name=não pode ser nulo ou vazio, productKey=deve ter tamanho entre 5 e 15]")))
+                .andExpect(jsonPath("$.message", is("[price=não pode ser nulo, accessMonths=não pode ser maior que 12, name=deve ter tamanho entre 5 e 30, productKey=deve ter tamanho entre 5 e 15]")))
                 .andExpect(jsonPath("$.httpStatus", is("BAD_REQUEST")))
                 .andExpect(jsonPath("$.statusCode", is(400)));
         verify(subscriptionTypeService, times(0)).update(any(), any());

@@ -19,7 +19,6 @@ public class SubscriptionTypeDto {
 
     private Long id;
 
-    @NotBlank(message = "não pode ser nulo ou vazio")
     @Size(min = 5, max = 30, message = "deve ter tamanho entre 5 e 30")
     private String name;
 
@@ -29,7 +28,6 @@ public class SubscriptionTypeDto {
     @NotNull(message = "não pode ser nulo")
     private BigDecimal price;
 
-    @NotBlank(message = "não pode ser nulo ou vazio")
     @Size(min = 5, max = 15, message = "deve ter tamanho entre 5 e 15")
     private String productKey;
 }
