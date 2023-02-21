@@ -1,0 +1,7 @@
+ALTER TABLE `users` ADD COLUMN `photo` MEDIUMBLOB;
+ALTER TABLE `users` ADD COLUMN `photo_name` varchar(255);
+
+-- TINYBLOB 255 bytes
+-- BLOB 65535 KB
+-- MEDIUMBLOB 16MB
+-- LONGBLOB 4GB

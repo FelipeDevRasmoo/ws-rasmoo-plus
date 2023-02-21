@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
         User user = findById(id);
         user.setPhotoName(file.getOriginalFilename());
         user.setPhoto(file.getBytes());
-        return user;
+        return userRepository.save(user);
     }
 
     @Override
