@@ -17,6 +17,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class WebSecurityConfig {
 
+    private static final String[] AUTH_SWAGGER_LIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/v2/api-docs/**",
+            "/swagger-resources/**"
+    };
+
     @Autowired
     private TokenService tokenService;
 
@@ -26,8 +33,9 @@ public class WebSecurityConfig {
     //responsável pela configuração de autorizacao -> Acesso a URL's
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeRequests().antMatchers(HttpMethod.GET, "/subscription-type").permitAll()
-                .antMatchers("/subscription-type/*").permitAll()
+        return http.authorizeRequests()
+                .antMatchers(AUTH_SWAGGER_LIST).permitAll()
+                .antMatchers(HttpMethod.GET, "/subscription-type").permitAll()
                 .antMatchers(HttpMethod.POST, "/user").permitAll()
                 .antMatchers(HttpMethod.POST, "/payment/process").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
