@@ -1,11 +1,13 @@
 package com.client.ws.rasmooplus.controller;
 
+import com.client.ws.rasmooplus.configuration.SwaggerConfig;
 import com.client.ws.rasmooplus.dto.LoginDto;
 import com.client.ws.rasmooplus.dto.TokenDto;
 import com.client.ws.rasmooplus.dto.UserDetailsDto;
 import com.client.ws.rasmooplus.model.redis.UserRecoveryCode;
 import com.client.ws.rasmooplus.service.AuthenticationService;
 import com.client.ws.rasmooplus.service.UserDetailsService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+@Api(tags = SwaggerConfig.AUTENTICACAO)
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
