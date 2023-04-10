@@ -21,7 +21,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false).groupName("v0").select()
+        return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false).groupName("v1").select()
                 .apis(RequestHandlerSelectors.basePackage("com.client.ws.rasmooplus.controller"))
                 .paths(PathSelectors.any()).build().securitySchemes(List.of(apiKey()))
                 .securityContexts(List.of(securityContext())).apiInfo(apiInfo())
@@ -49,7 +49,7 @@ public class SwaggerConfig {
         return apiInfoBuilder
                 .title("Rasmoo Plus")
                 .description("Api para atender o client Rasmoo Plus")
-                .version("0.0.1")
+                .version("1.0.0")
                 .license("Rasmoo cursos de tecnologia")
                 .build();
     }

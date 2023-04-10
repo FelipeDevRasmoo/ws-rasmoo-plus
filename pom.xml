@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.client.ws</groupId>
 	<artifactId>ws-rasmoo-plus</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>ws-rasmoo-plus</name>
 	<description>API REST para atender as demandas do client Rasmoo plus</description>
 	<properties>
