@@ -97,6 +97,7 @@ class UserServiceTest {
         User user = getUser(userType);
 
         when(userRepository.findById(2L)).thenReturn(Optional.of(user));
+        when(userRepository.save(any())).thenReturn(user);
         User userReturned = userService.uploadPhoto(2L, file);
         assertNotNull(userReturned);
         assertNotNull(userReturned.getPhoto());
