@@ -29,7 +29,7 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
     private final RestTemplate restTemplate;
     private final HttpHeaders headers;
 
-    public WsRaspayIntegrationImpl(RestTemplate restTemplate){
+    public WsRaspayIntegrationImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
         headers = getHttpHeaders();
     }
@@ -37,9 +37,9 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
     @Override
     public CustomerDto createCustomer(CustomerDto dto) {
         try {
-            HttpEntity<CustomerDto> request = new HttpEntity<>(dto,this.headers);
+            HttpEntity<CustomerDto> request = new HttpEntity<>(dto, this.headers);
             ResponseEntity<CustomerDto> response =
-                    restTemplate.exchange(raspayHost+customerUrl, HttpMethod.POST, request, CustomerDto.class);
+                    restTemplate.exchange(raspayHost + customerUrl, HttpMethod.POST, request, CustomerDto.class);
             return response.getBody();
         } catch (Exception e) {
             throw new HttpClientException(e.getLocalizedMessage());
@@ -49,9 +49,9 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
     @Override
     public OrderDto createOrder(OrderDto dto) {
         try {
-            HttpEntity<OrderDto> request = new HttpEntity<>(dto,this.headers);
+            HttpEntity<OrderDto> request = new HttpEntity<>(dto, this.headers);
             ResponseEntity<OrderDto> response =
-                    restTemplate.exchange(raspayHost+orderUrl, HttpMethod.POST, request, OrderDto.class);
+                    restTemplate.exchange(raspayHost + orderUrl, HttpMethod.POST, request, OrderDto.class);
             return response.getBody();
         } catch (Exception e) {
             throw new HttpClientException(e.getLocalizedMessage());
@@ -61,9 +61,9 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
     @Override
     public Boolean processPayment(PaymentDto dto) {
         try {
-            HttpEntity<PaymentDto> request = new HttpEntity<>(dto,this.headers);
+            HttpEntity<PaymentDto> request = new HttpEntity<>(dto, this.headers);
             ResponseEntity<Boolean> response =
-                    restTemplate.exchange(raspayHost+paymentUrl, HttpMethod.POST, request, Boolean.class);
+                    restTemplate.exchange(raspayHost + paymentUrl, HttpMethod.POST, request, Boolean.class);
             return response.getBody();
         } catch (Exception e) {
             throw new HttpClientException(e.getLocalizedMessage());
@@ -73,8 +73,8 @@ public class WsRaspayIntegrationImpl implements WsRaspayIntegration {
     private HttpHeaders getHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         String credential = "rasmooplus:r@sm00";
-        String base64 = new String (Base64.encodeBase64(credential.getBytes()));
-        headers.add("Authorization","Basic "+base64);
+        String base64 = new String(Base64.encodeBase64(credential.getBytes(), false));
+        headers.add("Authorization", "Basic " + base64);
         return headers;
     }
 }

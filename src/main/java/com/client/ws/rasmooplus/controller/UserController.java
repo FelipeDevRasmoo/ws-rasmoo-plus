@@ -3,6 +3,7 @@ package com.client.ws.rasmooplus.controller;
 import com.client.ws.rasmooplus.dto.UserDto;
 import com.client.ws.rasmooplus.model.jpa.User;
 import com.client.ws.rasmooplus.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController

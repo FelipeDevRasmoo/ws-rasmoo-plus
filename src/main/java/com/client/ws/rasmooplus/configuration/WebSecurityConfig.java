@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -19,7 +20,7 @@ public class WebSecurityConfig {
 
     private static final String[] AUTH_SWAGGER_LIST = {
             "/v3/api-docs/**",
-            "/swagger-ui/**",
+            "/swagger-ui.html",
             "/v2/api-docs/**",
             "/swagger-resources/**"
     };
@@ -30,16 +31,20 @@ public class WebSecurityConfig {
     @Autowired
     private UserDetailsRepository userDetailsRepository;
 
-    //responsável pela configuração de autorizacao -> Acesso a URL's
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web ->
+            web.ignoring()
+                    .requestMatchers(AUTH_SWAGGER_LIST)
+                    .requestMatchers(HttpMethod.GET, "/subscription-type")
+                    .requestMatchers(HttpMethod.POST, "/user")
+                    .requestMatchers(HttpMethod.POST, "/payment/process")
+                    .requestMatchers(HttpMethod.POST, "/auth")
+                    .requestMatchers( "/auth/recovery-code/*");
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeRequests()
-                .antMatchers(AUTH_SWAGGER_LIST).permitAll()
-                .antMatchers(HttpMethod.GET, "/subscription-type").permitAll()
-                .antMatchers(HttpMethod.POST, "/user").permitAll()
-                .antMatchers(HttpMethod.POST, "/payment/process").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .antMatchers( "/auth/recovery-code/*").permitAll()
+        return http.authorizeHttpRequests()
                 .anyRequest().authenticated()
                 .and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(new AuthenticationFilter(tokenService, userDetailsRepository), UsernamePasswordAuthenticationFilter.class).build();

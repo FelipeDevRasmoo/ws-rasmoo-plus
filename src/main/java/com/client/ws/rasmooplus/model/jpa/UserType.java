@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import jakarta.persistence.*;
+
 
 @Data
 @NoArgsConstructor

@@ -1,8 +1,8 @@
 package com.client.ws.rasmooplus.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor

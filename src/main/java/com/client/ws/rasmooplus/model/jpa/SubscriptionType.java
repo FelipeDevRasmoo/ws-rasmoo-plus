@@ -1,9 +1,9 @@
 package com.client.ws.rasmooplus.model.jpa;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
