@@ -1,13 +1,12 @@
 package com.client.ws.rasmooplus.model.jpa;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
 import java.io.Serializable;
-import java.sql.Blob;
 import java.time.LocalDate;
 
 @Data
