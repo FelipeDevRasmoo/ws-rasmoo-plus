@@ -87,7 +87,7 @@ class WsRaspayIntegrationTest {
     private static HttpHeaders getHttpHeaders() {
         HttpHeaders headers = new HttpHeaders();
         String credential = "rasmooplus:r@sm00";
-        String base64 = new String (Base64.encodeBase64(credential.getBytes()));
+        String base64 = new String (Base64.encodeBase64(credential.getBytes(),false));
         headers.add("Authorization","Basic "+base64);
         return headers;
     }

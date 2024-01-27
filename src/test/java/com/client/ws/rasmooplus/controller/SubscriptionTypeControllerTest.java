@@ -141,7 +141,7 @@ class SubscriptionTypeControllerTest {
         SubscriptionTypeDto dto = new SubscriptionTypeDto(null, "", 13L,
                 null, "22");
 
-        mockMvc.perform(put("/subscription-type/")
+        mockMvc.perform(put("/subscription-type")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(dto)))
                 .andExpect(status().isMethodNotAllowed());

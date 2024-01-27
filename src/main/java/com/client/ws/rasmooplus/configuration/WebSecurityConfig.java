@@ -20,8 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     private static final String[] AUTH_SWAGGER_LIST = {
-            "/v3/api-docs/**",
             "/swagger-ui.html",
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
             "/v2/api-docs/**",
             "/swagger-resources/**"
     };
