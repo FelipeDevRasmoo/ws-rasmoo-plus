@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: senha123
+      MYSQL_DATABASE: RASPLUS
+      MYSQL_USER: rasmoo
+      MYSQL_PASSWORD: senha123
+    volumes:
+    - mysql_data_container:/data/db      
+    
+  redis:
+    image: redis:4
+    container_name: redis-rasplus
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data_container:/data/redis
+volumes:
+  mysql_data_container:
+  redis_data_container:            
