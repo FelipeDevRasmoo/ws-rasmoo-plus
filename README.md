@@ -30,8 +30,10 @@ To create an account, it is necessary to follow the following flow.
 ![REGISTER](img/plan.png)
 
 ![REGISTER](img/credit-card.png)
-obs. You don't need to get a real credit card, the api you call a fake payment API, https://ws-raspay-89ccf0cc449b.herokuapp.com/ws-raspay/swagger-ui/index.html#/, also created by me that will be always accepted 
-<h3>Create Account</h3>
+
+obs. You don't need to get a real credit card, the api is calling a fake payment API, https://ws-raspay-89ccf0cc449b.herokuapp.com/ws-raspay/swagger-ui/index.html#/, also created by me that will be always accepted 
+> username: rasmooplus - pass: r@sm00
+<h3>Authentication</h3>
 Now, try to login
 
 > POST http://localhost:8082/ws-rasplus/v1/auth
