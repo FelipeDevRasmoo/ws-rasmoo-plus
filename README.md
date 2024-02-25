@@ -10,7 +10,7 @@ https://www.figma.com/file/VGuOtA84zWB4Hnlw2xsWIN/rasmoo-plus---class?type=desig
 <h3> Running the Project </h3>
 
 - Install docker and docker-compose if you don't have it
-- Clone the git repository and checkout your branch to 'atualizacao-springboot3' if you want to launchit in spring
+- Clone the git repository and checkout your branch to 'atualizacao-springboot3' if you want to launch it in spring
   boot 3, else keep it on master branch
 - Go do docker-compose.yml file in root project and launch mysql and redis running 'docker-compose up -d' command
 - Check if mysql and redis are up, running 'docker ps' command
@@ -30,7 +30,7 @@ To create an account, it is necessary to follow the following flow.
 ![REGISTER](img/plan.png)
 
 ![REGISTER](img/credit-card.png)
-
+obs. You don't need to get a real credit card, the api you call a fake payment API, https://ws-raspay-89ccf0cc449b.herokuapp.com/ws-raspay/swagger-ui/index.html#/, also created by me that will be always accepted 
 <h3>Create Account</h3>
 Now, try to login
 
