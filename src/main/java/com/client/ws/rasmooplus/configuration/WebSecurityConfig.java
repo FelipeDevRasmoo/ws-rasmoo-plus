@@ -22,6 +22,7 @@ public class WebSecurityConfig {
     private static final String[] AUTH_SWAGGER_LIST = {
             "/swagger-ui.html",
             "/v3/api-docs/**",
+            "/api-docs/**",
             "/swagger-ui/**",
             "/v2/api-docs/**",
             "/swagger-resources/**"
@@ -37,7 +38,7 @@ public class WebSecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web ->
             web.ignoring()
-                    .requestMatchers(HttpMethod.GET, AUTH_SWAGGER_LIST)
+                    .requestMatchers( AUTH_SWAGGER_LIST)
                     .requestMatchers(HttpMethod.GET, "/subscription-type")
                     .requestMatchers(HttpMethod.POST, "/user")
                     .requestMatchers(HttpMethod.POST, "/payment/process")
